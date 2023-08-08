@@ -58,11 +58,25 @@ class Num
             return self::POINT;
         }
 
+        $canBeInteger = self::canBeInteger($value);
+
         if ($pointCount > 0 && $commaCount == 0) {
+            if(!$canBeInteger && $pointCount === 1) {
+                return self::POINT;
+            }
+            if($canBeInteger && $pointCount === 1) {
+                return self::COMMA;
+            }
             return ($pointCount > 1) ? self::COMMA : self::POINT;
         }
 
-        if ($pointCount == 0 && $commaCount > 0) {
+        if ($commaCount > 0 && $pointCount == 0) {
+            if(!$canBeInteger && $commaCount === 1) {
+                return self::COMMA;
+            }
+            if($canBeInteger && $commaCount === 1) {
+                return self::POINT;
+            }
             return ($commaCount > 1) ? self::POINT : self::COMMA;
         }
 
@@ -84,5 +98,31 @@ class Num
         }
 
         return self::POINT;
+    }
+
+    public static function canBeInteger($input) {
+        $cleanedInput = preg_replace("/[^0-9,.]/", "", $input);
+    
+        $dotCount = substr_count($cleanedInput, ".");
+        $commaCount = substr_count($cleanedInput, ",");
+    
+        if ($dotCount + $commaCount === 1) {
+            $dotPosition = strpos($cleanedInput, ".");
+            $commaPosition = strpos($cleanedInput, ",");
+    
+            if ($dotCount === 1) {
+                $digitsAfterSeparator = substr($cleanedInput, $dotPosition + 1);
+            } else {
+                $digitsAfterSeparator = substr($cleanedInput, $commaPosition + 1);
+            }
+    
+            $digitCount = strlen($digitsAfterSeparator);
+    
+            if ($digitCount > 4 || $digitCount < 3) {
+                return false;
+            }
+        }
+    
+        return true;
     }
 }
