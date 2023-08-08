@@ -1,0 +1,22 @@
+{
+    "name": "514sid/num",
+    "license": "MIT",
+    "type": "library",
+    "description": "Num",
+    "autoload": {
+        "psr-4": {
+            "Num\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.1"
+    }
+}
