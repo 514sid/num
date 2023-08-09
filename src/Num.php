@@ -107,7 +107,7 @@ class Num
     
             $digitCount = strlen($digitsAfterSeparator);
     
-            if ($digitCount > 4 || $digitCount < 3) {
+            if ($digitCount !== 3) {
                 return false;
             }
         }
