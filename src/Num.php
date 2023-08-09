@@ -12,10 +12,6 @@ class Num
 
     /**
      * Convert a string to a float.
-     *
-     * @param  string  $value
-     * @param  string|null  $decimalSeparator
-     * @return float
      */
     public static function float(string $value, ?string $decimalSeparator = null): float
     {
@@ -33,10 +29,6 @@ class Num
 
     /**
      * Convert a string to an integer.
-     *
-     * @param  string  $value
-     * @param  string|null  $decimalSeparator
-     * @return int
      */
     public static function int(string $value, ?string $decimalSeparator = null): int
     {
@@ -45,9 +37,6 @@ class Num
 
     /**
      * Guess the decimal separator from a string representing a number.
-     *
-     * @param  string  $value
-     * @return string
      */
     public static function guessDecimalSeparator(string $value): string
     {
