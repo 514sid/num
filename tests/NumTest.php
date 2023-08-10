@@ -73,7 +73,7 @@ class NumTest extends TestCase
         $this->assertSame(Num::POINT, Num::guessDecimalSeparator('text'));
         $this->assertSame(Num::POINT, Num::guessDecimalSeparator('12.34567'));
         $this->assertSame(Num::POINT, Num::guessDecimalSeparator('12,345'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('12,3456'));
+        $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('12,3456'));
         $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('1.234.567,89'));
         $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('1\'234\'567,89'));
         $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('12,34567'));
