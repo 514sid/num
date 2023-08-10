@@ -101,12 +101,9 @@ class Num
         if ($dotCount + $commaCount === 1) {
             $dotPosition = strpos($cleanedInput, ".");
             $commaPosition = strpos($cleanedInput, ",");
-    
-            if ($dotCount === 1) {
-                $digitsAfterSeparator = substr($cleanedInput, $dotPosition + 1);
-            } else {
-                $digitsAfterSeparator = substr($cleanedInput, $commaPosition + 1);
-            }
+
+            $pos = (($dotCount === 1) ? $dotPosition : $commaPosition) + 1;
+            $digitsAfterSeparator = substr($cleanedInput, $pos);
     
             $digitCount = strlen($digitsAfterSeparator);
     
