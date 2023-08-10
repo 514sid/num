@@ -19,12 +19,10 @@ class Num
         $cleanedValue = preg_replace('/[^0-9' . preg_quote($decimalSeparator) . ']/', '', $value);
 
         if ($decimalSeparator === self::COMMA) {
-            $floatValue = (float) str_replace($decimalSeparator, self::POINT, $cleanedValue);
-        } else {
-            $floatValue = (float) $cleanedValue;
+            return (float)str_replace($decimalSeparator, self::POINT, $cleanedValue);
         }
 
-        return $floatValue;
+        return (float)$cleanedValue;
     }
 
     /**
@@ -32,7 +30,7 @@ class Num
      */
     public static function int(string $value, ?string $decimalSeparator = null): int
     {
-        return (int) self::float($value, $decimalSeparator);
+        return (int)self::float($value, $decimalSeparator);
     }
 
     /**
@@ -87,11 +85,8 @@ class Num
             $dotPosition = strpos($cleanedInput, ".");
             $commaPosition = strpos($cleanedInput, ",");
 
-            if ($dotCount === 1) {
-                $digitsAfterSeparator = substr($cleanedInput, $dotPosition + 1);
-            } else {
-                $digitsAfterSeparator = substr($cleanedInput, $commaPosition + 1);
-            }
+            $pos = (($dotCount === 1) ? $dotPosition : $commaPosition) + 1;
+            $digitsAfterSeparator = substr($cleanedInput, $pos);
 
             $digitCount = strlen($digitsAfterSeparator);
 
