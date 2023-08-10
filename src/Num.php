@@ -19,12 +19,10 @@ class Num
         $cleanedValue = preg_replace('/[^0-9' . preg_quote($decimalSeparator) . ']/', '', $value);
 
         if ($decimalSeparator === self::COMMA) {
-            $floatValue = (float) str_replace($decimalSeparator, self::POINT, $cleanedValue);
-        } else {
-            $floatValue = (float) $cleanedValue;
+            return (float) str_replace($decimalSeparator, self::POINT, $cleanedValue);
         }
-
-        return $floatValue;
+        
+        return (float) $cleanedValue;
     }
 
     /**
