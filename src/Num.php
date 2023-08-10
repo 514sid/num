@@ -48,22 +48,26 @@ class Num
         $canBeInteger = self::canBeInteger($value);
 
         if ($pointCount > 0 && $commaCount === 0) {
-            if(!$canBeInteger && $pointCount === 1) {
+            if (!$canBeInteger && $pointCount === 1) {
                 return self::POINT;
             }
-            if($canBeInteger && $pointCount === 1) {
+            
+            if ($canBeInteger && $pointCount === 1) {
                 return self::COMMA;
             }
+            
             return ($pointCount > 1) ? self::COMMA : self::POINT;
         }
 
         if ($commaCount > 0 && $pointCount === 0) {
-            if(!$canBeInteger && $commaCount === 1) {
+            if (!$canBeInteger && $commaCount === 1) {
                 return self::COMMA;
             }
-            if($canBeInteger && $commaCount === 1) {
+            
+            if ($canBeInteger && $commaCount === 1) {
                 return self::POINT;
             }
+            
             return ($commaCount > 1) ? self::POINT : self::COMMA;
         }
 
