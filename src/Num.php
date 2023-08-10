@@ -89,7 +89,8 @@ class Num
         return self::POINT;
     }
 
-    public static function canBeInteger($input) {
+    public static function canBeInteger($input): bool
+    {
         $cleanedInput = preg_replace("/[^0-9,.]/", "", $input);
     
         $dotCount = substr_count($cleanedInput, ".");
