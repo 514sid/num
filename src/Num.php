@@ -41,13 +41,13 @@ class Num
         $pointCount = substr_count($value, self::POINT);
         $commaCount = substr_count($value, self::COMMA);
 
-        if ($pointCount == 0 && $commaCount == 0) {
+        if ($pointCount === 0 && $commaCount === 0) {
             return self::POINT;
         }
 
         $canBeInteger = self::canBeInteger($value);
 
-        if ($pointCount > 0 && $commaCount == 0) {
+        if ($pointCount > 0 && $commaCount === 0) {
             if(!$canBeInteger && $pointCount === 1) {
                 return self::POINT;
             }
@@ -57,7 +57,7 @@ class Num
             return ($pointCount > 1) ? self::COMMA : self::POINT;
         }
 
-        if ($commaCount > 0 && $pointCount == 0) {
+        if ($commaCount > 0 && $pointCount === 0) {
             if(!$canBeInteger && $commaCount === 1) {
                 return self::COMMA;
             }
