@@ -43,47 +43,34 @@ class Num
         $pointCount = substr_count($value, self::POINT);
         $commaCount = substr_count($value, self::COMMA);
 
-        if ($pointCount == 0 && $commaCount == 0) {
+        $hasComma = $commaCount > 0;
+        $hasPoint = $pointCount > 0;
+
+        if (!$hasComma && !$hasPoint) {
             return self::POINT;
         }
 
         $canBeInteger = self::canBeInteger($value);
 
         if ($pointCount > 0 && $commaCount == 0) {
-            if(!$canBeInteger && $pointCount === 1) {
-                return self::POINT;
-            }
-            if($canBeInteger && $pointCount === 1) {
-                return self::COMMA;
-            }
-            return ($pointCount > 1) ? self::COMMA : self::POINT;
+            return (!$canBeInteger) ? self::POINT : self::COMMA;
         }
 
         if ($commaCount > 0 && $pointCount == 0) {
-            if(!$canBeInteger && $commaCount === 1) {
-                return self::COMMA;
-            }
-            if($canBeInteger && $commaCount === 1) {
-                return self::POINT;
-            }
-            return ($commaCount > 1) ? self::POINT : self::COMMA;
+            return (!$canBeInteger) ? self::COMMA : self::POINT;
         }
 
-        if ($pointCount < $commaCount) {
-            return self::POINT;
-        } elseif ($commaCount < $pointCount) {
+        if ($commaCount < $pointCount) {
             return self::COMMA;
-        } else {
-            $lastPointPosition = strrpos($value, self::POINT);
-            $lastCommaPosition = strrpos($value, self::COMMA);
+        }
 
-            if ($lastPointPosition !== false && $lastCommaPosition !== false) {
-                return ($lastPointPosition > $lastCommaPosition) ? self::POINT : self::COMMA;
-            } elseif ($lastPointPosition !== false) {
-                return self::POINT;
-            } elseif ($lastCommaPosition !== false) {
-                return self::COMMA;
-            }
+        $lastPointPosition = strrpos($value, self::POINT);
+        $lastCommaPosition = strrpos($value, self::COMMA);
+
+        if ($lastPointPosition !== false && $lastCommaPosition !== false) {
+            return ($lastPointPosition > $lastCommaPosition) ? self::POINT : self::COMMA;
+        } elseif ($lastCommaPosition !== false) {
+            return self::COMMA;
         }
 
         return self::POINT;
