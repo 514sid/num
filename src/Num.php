@@ -76,29 +76,30 @@ class Num
         return self::POINT;
     }
 
-    public static function canBeInteger($input) {
+    public static function canBeInteger($input): bool
+    {
         $cleanedInput = preg_replace("/[^0-9,.]/", "", $input);
-    
+
         $dotCount = substr_count($cleanedInput, ".");
         $commaCount = substr_count($cleanedInput, ",");
-    
+
         if ($dotCount + $commaCount === 1) {
             $dotPosition = strpos($cleanedInput, ".");
             $commaPosition = strpos($cleanedInput, ",");
-    
+
             if ($dotCount === 1) {
                 $digitsAfterSeparator = substr($cleanedInput, $dotPosition + 1);
             } else {
                 $digitsAfterSeparator = substr($cleanedInput, $commaPosition + 1);
             }
-    
+
             $digitCount = strlen($digitsAfterSeparator);
-    
+
             if ($digitCount !== 3) {
                 return false;
             }
         }
-    
+
         return true;
     }
 }
