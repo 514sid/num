@@ -20,6 +20,6 @@
         "phpunit/phpunit": "^10.1"
     },
     "scripts": {
-        "test": "phpunit"
+        "tests": "phpunit"
     }
 }
