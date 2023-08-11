@@ -19,12 +19,10 @@ class Num
         $cleanedValue = preg_replace('/[^0-9' . preg_quote($decimalSeparator) . ']/', '', $value);
 
         if ($decimalSeparator === self::COMMA) {
-            $floatValue = (float) str_replace($decimalSeparator, self::POINT, $cleanedValue);
-        } else {
-            $floatValue = (float) $cleanedValue;
+            return (float)str_replace($decimalSeparator, self::POINT, $cleanedValue);
         }
 
-        return $floatValue;
+        return (float)$cleanedValue;
     }
 
     /**
@@ -32,7 +30,7 @@ class Num
      */
     public static function int(string $value, ?string $decimalSeparator = null): int
     {
-        return (int) self::float($value, $decimalSeparator);
+        return (int)self::float($value, $decimalSeparator);
     }
 
     /**
@@ -43,75 +41,60 @@ class Num
         $pointCount = substr_count($value, self::POINT);
         $commaCount = substr_count($value, self::COMMA);
 
-        if ($pointCount == 0 && $commaCount == 0) {
+        $hasComma = $commaCount > 0;
+        $hasPoint = $pointCount > 0;
+
+        if (!$hasComma && !$hasPoint) {
             return self::POINT;
         }
 
         $canBeInteger = self::canBeInteger($value);
 
         if ($pointCount > 0 && $commaCount == 0) {
-            if(!$canBeInteger && $pointCount === 1) {
-                return self::POINT;
-            }
-            if($canBeInteger && $pointCount === 1) {
-                return self::COMMA;
-            }
-            return ($pointCount > 1) ? self::COMMA : self::POINT;
+            return (!$canBeInteger) ? self::POINT : self::COMMA;
         }
 
         if ($commaCount > 0 && $pointCount == 0) {
-            if(!$canBeInteger && $commaCount === 1) {
-                return self::COMMA;
-            }
-            if($canBeInteger && $commaCount === 1) {
-                return self::POINT;
-            }
-            return ($commaCount > 1) ? self::POINT : self::COMMA;
+            return (!$canBeInteger) ? self::COMMA : self::POINT;
         }
 
-        if ($pointCount < $commaCount) {
-            return self::POINT;
-        } elseif ($commaCount < $pointCount) {
+        if ($commaCount < $pointCount) {
             return self::COMMA;
-        } else {
-            $lastPointPosition = strrpos($value, self::POINT);
-            $lastCommaPosition = strrpos($value, self::COMMA);
+        }
 
-            if ($lastPointPosition !== false && $lastCommaPosition !== false) {
-                return ($lastPointPosition > $lastCommaPosition) ? self::POINT : self::COMMA;
-            } elseif ($lastPointPosition !== false) {
-                return self::POINT;
-            } elseif ($lastCommaPosition !== false) {
-                return self::COMMA;
-            }
+        $lastPointPosition = strrpos($value, self::POINT);
+        $lastCommaPosition = strrpos($value, self::COMMA);
+
+        if ($lastPointPosition !== false && $lastCommaPosition !== false) {
+            return ($lastPointPosition > $lastCommaPosition) ? self::POINT : self::COMMA;
+        } elseif ($lastCommaPosition !== false) {
+            return self::COMMA;
         }
 
         return self::POINT;
     }
 
-    public static function canBeInteger($input) {
+    public static function canBeInteger($input): bool
+    {
         $cleanedInput = preg_replace("/[^0-9,.]/", "", $input);
-    
+
         $dotCount = substr_count($cleanedInput, ".");
         $commaCount = substr_count($cleanedInput, ",");
-    
+
         if ($dotCount + $commaCount === 1) {
             $dotPosition = strpos($cleanedInput, ".");
             $commaPosition = strpos($cleanedInput, ",");
-    
-            if ($dotCount === 1) {
-                $digitsAfterSeparator = substr($cleanedInput, $dotPosition + 1);
-            } else {
-                $digitsAfterSeparator = substr($cleanedInput, $commaPosition + 1);
-            }
-    
+
+            $pos = (($dotCount === 1) ? $dotPosition : $commaPosition) + 1;
+            $digitsAfterSeparator = substr($cleanedInput, $pos);
+
             $digitCount = strlen($digitsAfterSeparator);
-    
+
             if ($digitCount !== 3) {
                 return false;
             }
         }
-    
+
         return true;
     }
 }
