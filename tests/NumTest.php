@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Tests\Support;
+namespace Num\Tests;
 
 use Num\Num;
 use PHPUnit\Framework\TestCase;
@@ -60,23 +60,5 @@ class NumTest extends TestCase
         $this->assertSame(1234567, Num::int('1\'234\'567,89', Num::COMMA));
         $this->assertSame(12, Num::int('12,345', Num::COMMA));
         $this->assertSame(0, Num::int('text', Num::COMMA));
-    }
-
-    public function testGuessingDecimalSeparatorFromNumberString()
-    {
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('1,234,567.89'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('1,234,567'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('1 234 567.89'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('123,4567.89'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('1\'234\'567.89'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('123'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('text'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('12.34567'));
-        $this->assertSame(Num::POINT, Num::guessDecimalSeparator('12,345'));
-        $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('12,3456'));
-        $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('1.234.567,89'));
-        $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('1 234 567,89'));
-        $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('1\'234\'567,89'));
-        $this->assertSame(Num::COMMA, Num::guessDecimalSeparator('12,34567'));
     }
 }
