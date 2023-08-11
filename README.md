@@ -51,9 +51,9 @@ Num::int('text') // int(0)
 
 When you pass a decimal separator as the second argument to the `int()` or `float()` static methods, they remove everything from the string except digits and the decimal separator, and then perform typecasting using PHP's built-in functionality.
 
-If you do not specify a decimal separator, the `Num` helper tries to guess it using the `guessDecimalSeparator()` method, which relies on formatting conventions from the Wikipedia article: https://en.wikipedia.org/wiki/Decimal_separator.
+If you do not specify a decimal separator, the `Num` helper tries to guess it using the `DecimalSeparatorGuesser`, which relies on formatting conventions from the Wikipedia article: https://en.wikipedia.org/wiki/Decimal_separator.
 
-I am still working on improving `guessDecimalSeparator()`, so it might not be 100% accurate.
+I am still working on improving `DecimalSeparatorGuesser`, so it might not be 100% accurate.
 
 In most locales, for numbers smaller than 100000, a thousand separator is used based on powers of 1000.
 
