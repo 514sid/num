@@ -11,7 +11,7 @@ class Num
      */
     const POINT = '.';
     const COMMA = ',';
-    
+
     /**
      * Convert a string to a float.
      */
