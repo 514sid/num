@@ -18,6 +18,7 @@ class NumberValidatorTest extends TestCase
     public function testInvalidIntegerNumbers()
     {
         $this->assertFalse(NumberValidator::canBeInteger('1,23'));
+        $this->assertFalse(NumberValidator::canBeInteger('1423,233'));
         $this->assertFalse(NumberValidator::canBeInteger('1.2'));
         $this->assertFalse(NumberValidator::canBeInteger('1.2345'));
     }

@@ -17,6 +17,10 @@ class NumberValidator
         if ($dotCount + $commaCount === 1) {
             $separatorPosition = $dotCount === 1 ? strpos($cleanedInput, self::POINT) : strpos($cleanedInput, self::COMMA);
 
+            if ($separatorPosition > 3) {
+                return false;
+            }
+
             if (strlen(substr($cleanedInput, $separatorPosition + 1)) !== 3) {
                 return false;
             }
