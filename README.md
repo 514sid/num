@@ -3,7 +3,7 @@
 [![Latest Stable Version](http://poser.pugx.org/514sid/num/v)](https://packagist.org/packages/514sid/num)
 [![Total Downloads](http://poser.pugx.org/514sid/num/downloads)](https://packagist.org/packages/514sid/num)
 [![License](http://poser.pugx.org/514sid/num/license)](https://packagist.org/packages/514sid/num)
-
+![Tests](https://github.com/514sid/num/actions/workflows/php.yml/badge.svg)
 
 An accurate PHP helper for parsing numbers from strings with support for various thousands and decimal separators.
 
