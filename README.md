@@ -65,6 +65,7 @@ use Num\Num;
 Num::float('12.34567') // float(12.34567)
 Num::float('12.34') // float(12.34)
 Num::float('12.345') // float(12345.0)
+Num::float('1234,567') // float(1234.567)
 ```
 
 ## License
