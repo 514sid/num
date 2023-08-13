@@ -3,24 +3,22 @@
 namespace Num;
 
 use Num\NumberValidator;
+use Num\Enums\DecimalSeparator;
 
 class DecimalSeparatorGuesser
 {
-    const POINT = '.';
-    const COMMA = ',';
-
     /**
      * Guesses the appropriate decimal separator for the given numeric value.
      */
-    public static function guess(string $value): string
+    public static function guess(string $value): DecimalSeparator
     {
         // Count occurrences of decimal point and comma in the value
-        $pointCount = substr_count($value, self::POINT);
-        $commaCount = substr_count($value, self::COMMA);
+        $pointCount = substr_count($value, DecimalSeparator::POINT->value);
+        $commaCount = substr_count($value, DecimalSeparator::COMMA->value);
 
         // If there are no decimal points or commas, default to decimal point
         if ($pointCount === 0 && $commaCount === 0) {
-            return self::POINT;
+            return DecimalSeparator::POINT;
         }
 
         // Check if the value can be treated as an integer
@@ -28,30 +26,30 @@ class DecimalSeparatorGuesser
 
         // Determine the appropriate separator based on counts and integer check
         if ($pointCount > 0 && $commaCount === 0) {
-            return self::selectDecimalSeparator(!$canBeInteger, self::POINT, self::COMMA);
+            return self::selectDecimalSeparator(!$canBeInteger, DecimalSeparator::POINT, DecimalSeparator::COMMA);
         }
 
         if ($commaCount > 0 && $pointCount === 0) {
-            return self::selectDecimalSeparator(!$canBeInteger, self::COMMA, self::POINT);
+            return self::selectDecimalSeparator(!$canBeInteger, DecimalSeparator::COMMA, DecimalSeparator::POINT);
         }
 
         // If commas are fewer than points, use comma as separator
         if ($commaCount < $pointCount) {
-            return self::COMMA;
+            return DecimalSeparator::COMMA;
         }
 
         // Choose separator based on the last occurrence of each separator
         return self::selectDecimalSeparator(
-            self::lastPosition($value, self::POINT) > self::lastPosition($value, self::COMMA),
-            self::POINT,
-            self::COMMA
+            self::lastPosition($value, DecimalSeparator::POINT) > self::lastPosition($value, DecimalSeparator::COMMA),
+            DecimalSeparator::POINT,
+            DecimalSeparator::COMMA
         );
     }
 
     /**
      * Selects a decimal separator based on a condition.
      */
-    private static function selectDecimalSeparator(bool $condition, string $trueOption, string $falseOption): string
+    private static function selectDecimalSeparator(bool $condition, DecimalSeparator $trueOption, DecimalSeparator $falseOption): DecimalSeparator
     {
         return $condition ? $trueOption : $falseOption;
     }
@@ -59,9 +57,9 @@ class DecimalSeparatorGuesser
     /**
      * Returns the position of the last occurrence of a separator in the string.
      */
-    private static function lastPosition(string $string, string $separator): int
+    private static function lastPosition(string $string, DecimalSeparator $separator): int
     {
-        $lastPosition = strrpos($string, $separator);
+        $lastPosition = strrpos($string, $separator->value);
 
         return $lastPosition !== false ? $lastPosition : -1;
     }

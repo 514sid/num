@@ -2,20 +2,19 @@
 
 namespace Num;
 
+use Num\Enums\DecimalSeparator;
+
 class NumberValidator
 {
-    const POINT = '.';
-    const COMMA = ',';
-
     public static function canBeInteger(string $input): bool
     {
         $cleanedInput = preg_replace("/[^\d,.]/", "", $input);
 
-        $dotCount = substr_count($cleanedInput, self::POINT);
-        $commaCount = substr_count($cleanedInput, self::COMMA);
+        $dotCount = substr_count($cleanedInput, DecimalSeparator::POINT->value);
+        $commaCount = substr_count($cleanedInput, DecimalSeparator::COMMA->value);
 
         if ($dotCount + $commaCount === 1) {
-            $separatorPosition = $dotCount === 1 ? strpos($cleanedInput, self::POINT) : strpos($cleanedInput, self::COMMA);
+            $separatorPosition = $dotCount === 1 ? strpos($cleanedInput, DecimalSeparator::POINT->value) : strpos($cleanedInput, DecimalSeparator::COMMA->value);
 
             if ($separatorPosition > 3) {
                 return false;
