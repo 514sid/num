@@ -33,9 +33,10 @@ You have the option to provide the decimal separator to the `int()` or `float()`
 Alternatively, you can allow the `Num` helper to make an educated guess if you're unsure about the exact separator used in a specific string representing a numeric value.
 ```php
 use Num\Num;
+use Num\Enums\DecimalSeparator;
 
-Num::float('1,234,567.89', Num::POINT) // float(1234567.89)
-Num::float('1.234.567,89', Num::COMMA) // float(1234567.89)
+Num::float('1,234,567.89', DecimalSeparator::POINT) // float(1234567.89)
+Num::float('1.234.567,89', DecimalSeparator::COMMA) // float(1234567.89)
 // or
 Num::float('1,234,567.89') // float(1234567.89)
 Num::float('1.234.567,89') // float(1234567.89)
