@@ -8,23 +8,52 @@ class NumberValidator
 {
     public static function canBeInteger(string $input): bool
     {
-        $cleanedInput = preg_replace("/[^\d,.]/", "", $input);
+        $cleanedInput = self::cleanInput($input);
 
-        $dotCount = substr_count($cleanedInput, DecimalSeparator::POINT->value);
-        $commaCount = substr_count($cleanedInput, DecimalSeparator::COMMA->value);
+        $separatorCounts = self::countSeparators($cleanedInput);
 
-        if ($dotCount + $commaCount === 1) {
-            $separatorPosition = $dotCount === 1 ? strpos($cleanedInput, DecimalSeparator::POINT->value) : strpos($cleanedInput, DecimalSeparator::COMMA->value);
-
-            if ($separatorPosition > 3) {
-                return false;
-            }
-
-            if (strlen(substr($cleanedInput, $separatorPosition + 1)) !== 3) {
-                return false;
-            }
+        if (!self::hasExactlyOneSeparator($separatorCounts)) {
+            return true;
         }
 
-        return true;
+        $separatorPosition = self::findSeparatorPosition($cleanedInput, $separatorCounts);
+
+        return self::hasValidAmountOfDigitsBeforeSeparator($separatorPosition) && self::hasValidAmountOfDigitsAfterSeparator($cleanedInput, $separatorPosition);
+    }
+
+    private static function cleanInput(string $input): string
+    {
+        return preg_replace("/[^\d,.]/", "", $input);
+    }
+
+    private static function hasExactlyOneSeparator(array $separatorCounts): bool
+    {
+        return $separatorCounts['pointCount'] + $separatorCounts['commaCount'] === 1;
+    }
+
+    private static function countSeparators(string $input): array
+    {
+        $pointCount = substr_count($input, DecimalSeparator::POINT->value);
+        $commaCount = substr_count($input, DecimalSeparator::COMMA->value);
+
+        return ['pointCount' => $pointCount, 'commaCount' => $commaCount];
+    }
+
+    private static function findSeparatorPosition(string $input, array $separatorCounts): int
+    {
+        return $separatorCounts['pointCount'] === 1 ?
+            strpos($input, DecimalSeparator::POINT->value) :
+            strpos($input, DecimalSeparator::COMMA->value);
+    }
+
+    private static function hasValidAmountOfDigitsBeforeSeparator(int $separatorPosition): bool
+    {
+        return $separatorPosition <= 3;
+    }
+
+    private static function hasValidAmountOfDigitsAfterSeparator(string $input, int $separatorPosition): bool
+    {
+        $decimalPart = substr($input, $separatorPosition + 1);
+        return strlen($decimalPart) === 3;
     }
 }
