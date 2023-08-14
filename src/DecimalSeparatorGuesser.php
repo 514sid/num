@@ -33,11 +33,6 @@ class DecimalSeparatorGuesser
             return self::selectDecimalSeparator(!$canBeInteger, DecimalSeparator::COMMA, DecimalSeparator::POINT);
         }
 
-        // If commas are fewer than points, use comma as separator
-        if ($commaCount < $pointCount) {
-            return DecimalSeparator::COMMA;
-        }
-
         // Choose separator based on the last occurrence of each separator
         return self::selectDecimalSeparator(
             self::lastPosition($value, DecimalSeparator::POINT) > self::lastPosition($value, DecimalSeparator::COMMA),
