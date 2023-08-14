@@ -23,7 +23,9 @@ class NumberValidator
 
     private static function cleanInput(string $input): string
     {
-        return preg_replace("/[^\d,.]/", "", $input);
+        $input = preg_replace("/[^\d,.]/", "", $input);
+
+        return ltrim($input, '0');
     }
 
     private static function hasExactlyOneSeparator(array $separatorCounts): bool
@@ -48,7 +50,7 @@ class NumberValidator
 
     private static function hasValidAmountOfDigitsBeforeSeparator(int $separatorPosition): bool
     {
-        return $separatorPosition <= 3;
+        return $separatorPosition > 0 && $separatorPosition <= 3;
     }
 
     private static function hasValidAmountOfDigitsAfterSeparator(string $input, int $separatorPosition): bool
