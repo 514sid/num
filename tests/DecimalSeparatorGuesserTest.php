@@ -19,10 +19,12 @@ class DecimalSeparatorGuesserTest extends TestCase
         $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('text'));
         $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('12.34567'));
         $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('12,345'));
+        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('.12'));
         $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('12,3456'));
         $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('1.234.567,89'));
         $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('1 234 567,89'));
         $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('1\'234\'567,89'));
         $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('12,34567'));
+        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess(',12'));
     }
 }
