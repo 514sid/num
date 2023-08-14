@@ -16,10 +16,12 @@ class Num
         $cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator->value) . ']/', '', $value);
 
         if ($decimalSeparator === DecimalSeparator::COMMA) {
-            return (float) str_replace($decimalSeparator->value, DecimalSeparator::POINT->value, $cleanedValue);
+            $cleanedValue = str_replace($decimalSeparator->value, DecimalSeparator::POINT->value, $cleanedValue);
         }
 
-        return (float) $cleanedValue;
+        $floatValue = (float) $cleanedValue;
+
+        return strpos($value, '-') === 0 ? -$floatValue : $floatValue;
     }
 
     /**
