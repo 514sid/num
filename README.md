@@ -7,6 +7,8 @@
 
 An accurate PHP helper for parsing numbers from strings with support for various thousands and decimal separators.
 
+![Hero](https://github.com/514sid/num/assets/140138716/70ebb418-e67f-481d-b274-c1e42bf80441)
+
 ## Requirements
 
 [![PHP Version Require](http://poser.pugx.org/514sid/num/require/php)](https://packagist.org/packages/514sid/num)
