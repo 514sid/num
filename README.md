@@ -70,6 +70,18 @@ Num::float('12.345') // float(12345.0)
 Num::float('1234,567') // float(1234.567)
 ```
 
+## Laravel Casts
+
+```php
+use Num\Casts\NumInt;
+use Num\Casts\NumFloat;
+
+protected $casts = [
+    'integer'        => NumInt::class,
+    'float'          => NumFloat::class,
+];
+```
+
 ## License
 
 [MIT](LICENSE)
