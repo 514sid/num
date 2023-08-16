@@ -25,6 +25,7 @@ class NumTest extends TestCase
         $this->assertSame(0.0, Num::float('text', DecimalSeparator::POINT));
         $this->assertSame(0.12, Num::float('.12', DecimalSeparator::POINT));
         $this->assertSame(-123.45, Num::float('-123.45', DecimalSeparator::POINT));
+        $this->assertSame(123.0, Num::float(123));
     }
 
     public function testConversionOfNumberWithPointDecimalSeparatorToInteger()
@@ -45,6 +46,7 @@ class NumTest extends TestCase
         $this->assertSame(12, Num::int('$-12.30', DecimalSeparator::POINT));
         $this->assertSame(0, Num::int('text', DecimalSeparator::POINT));
         $this->assertSame(0, Num::int('.12', DecimalSeparator::POINT));
+        $this->assertSame(123, Num::int(123.45));
     }
 
     public function testConversionOfNumberWithCommaDecimalSeparatorToFloat()
