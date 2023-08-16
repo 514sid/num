@@ -20,15 +20,7 @@ class NumFloat implements CastsAttributes
             return null;
         }
 
-        if (is_numeric($value)) {
-            return (float) $value;
-        }
-
-        if (is_string($value)) {
-            return Num::float($value);
-        }
-
-        throw new \InvalidArgumentException("The value must be either an integer or a string.");
+        return Num::float($value);
     }
 
     /**
@@ -42,14 +34,6 @@ class NumFloat implements CastsAttributes
             return [$key => $value];
         }
 
-        if (is_numeric($value)) {
-            return [$key => (float) $value];
-        }
-
-        if (is_string($value)) {
-            return Num::float($value);
-        }
-
-        throw new \InvalidArgumentException("The value must be either an integer or a string.");
+        return [$key => Num::float($value)];
     }
 }

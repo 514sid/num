@@ -20,15 +20,7 @@ class NumInt implements CastsAttributes
             return null;
         }
 
-        if (is_numeric($value)) {
-            return (int) $value;
-        }
-
-        if (is_string($value)) {
-            return Num::int($value);
-        }
-
-        throw new \InvalidArgumentException("The value must be either an integer or a string.");
+        return Num::int($value);
     }
 
     /**
@@ -42,14 +34,6 @@ class NumInt implements CastsAttributes
             return [$key => $value];
         }
 
-        if (is_numeric($value)) {
-            return [$key => (int) $value];
-        }
-
-        if (is_string($value)) {
-            return Num::int($value);
-        }
-
-        throw new \InvalidArgumentException("The value must be either an integer or a string.");
+        return [$key => Num::int($value)];
     }
 }
