@@ -7,6 +7,12 @@
 
 An accurate PHP helper for parsing numbers from strings with support for various thousands and decimal separators.
 
+## v1.5.0 Release Notes
+
+Starting from v1.5.0, `Num` also supports parameter types of `int` and `float`. This means you can pass a string, an integer, or a float to `Num::int` or `Num::float`, and it will automatically convert it to the required type.
+
+If a non-numeric or non-string parameter is passed, it will throw an `InvalidArgumentException`.
+
 ![Hero](https://github.com/514sid/num/assets/140138716/70ebb418-e67f-481d-b274-c1e42bf80441)
 
 ## Requirements
@@ -24,8 +30,8 @@ $ composer require 514sid/num
 The built-in PHP functions `intval()` and `floatval()`, along with typecasting, may not always correctly handle varying numeric value formats based on regional standards.
 
 ```php
-floatval("1 234 567.89") // float(1)
-intval("1,234.56") // int(1)
+floatval("1 234 567.89")    // float(1)
+intval("1,234.56")          // int(1)
 ```
 
 With the `Num` helper, you can achieve the desired functionality.
@@ -40,14 +46,16 @@ use Num\Enums\DecimalSeparator;
 Num::float('1,234,567.89', DecimalSeparator::POINT) // float(1234567.89)
 Num::float('1.234.567,89', DecimalSeparator::COMMA) // float(1234567.89)
 // or
-Num::float('1,234,567.89') // float(1234567.89)
-Num::float('1.234.567,89') // float(1234567.89)
+Num::float('1,234,567.89')  // float(1234567.89)
+Num::float('1.234.567,89')  // float(1234567.89)
+Num::float(123)             // float(123.0)
 
-Num::int('1,234,567.89') // int(1234567)
-Num::int('1.234.567,89') // int(1234567)
+Num::int('1,234,567.89')    // int(1234567)
+Num::int('1.234.567,89')    // int(1234567)
+Num::int(123.45)            // int(123)
 
-Num::float('text') // float(0.0)
-Num::int('text') // int(0)
+Num::float('text')  // float(0.0)
+Num::int('text')    // int(0)
 ```
 
 ## How It Works
@@ -64,10 +72,10 @@ This means that if a string is provided with only one dot or comma and there are
 ```php
 use Num\Num;
 
-Num::float('12.34567') // float(12.34567)
-Num::float('12.34') // float(12.34)
-Num::float('12.345') // float(12345.0)
-Num::float('1234,567') // float(1234.567)
+Num::float('12.34567')  // float(12.34567)
+Num::float('12.34')     // float(12.34)
+Num::float('12.345')    // float(12345.0)
+Num::float('1234,567')  // float(1234.567)
 ```
 
 ## Laravel Casts
@@ -77,8 +85,8 @@ use Num\Casts\NumInt;
 use Num\Casts\NumFloat;
 
 protected $casts = [
-    'integer'        => NumInt::class,
-    'float'          => NumFloat::class,
+    'integer' => NumInt::class,
+    'float'   => NumFloat::class,
 ];
 ```
 
