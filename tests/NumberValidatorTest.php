@@ -7,22 +7,42 @@ use PHPUnit\Framework\TestCase;
 
 class NumberValidatorTest extends TestCase
 {
-    public function testValidIntegerNumbers()
+    /**
+     * @dataProvider validIntegerNumbersProvider
+     */
+    public function testValidIntegerNumbers($input)
     {
-        $this->assertTrue(NumberValidator::canBeInteger('123'));
-        $this->assertTrue(NumberValidator::canBeInteger('1,234'));
-        $this->assertTrue(NumberValidator::canBeInteger('1.234'));
-        $this->assertTrue(NumberValidator::canBeInteger('1,234,567'));
+        $this->assertTrue(NumberValidator::canBeInteger($input));
     }
 
-    public function testInvalidIntegerNumbers()
+    /**
+     * @dataProvider invalidIntegerNumbersProvider
+     */
+    public function testInvalidIntegerNumbers($input)
     {
-        $this->assertFalse(NumberValidator::canBeInteger('1,23'));
-        $this->assertFalse(NumberValidator::canBeInteger('1423,233'));
-        $this->assertFalse(NumberValidator::canBeInteger('1.2'));
-        $this->assertFalse(NumberValidator::canBeInteger('1.2345'));
-        $this->assertFalse(NumberValidator::canBeInteger('000.123'));
-        $this->assertFalse(NumberValidator::canBeInteger('0.123'));
-        $this->assertFalse(NumberValidator::canBeInteger('0.12'));
+        $this->assertFalse(NumberValidator::canBeInteger($input));
+    }
+
+    public static function validIntegerNumbersProvider()
+    {
+        return [
+            ['123'],
+            ['1,234'],
+            ['1.234'],
+            ['1,234,567'],
+        ];
+    }
+
+    public static function invalidIntegerNumbersProvider()
+    {
+        return [
+            ['1,23'],
+            ['1423,233'],
+            ['1.2'],
+            ['1.2345'],
+            ['000.123'],
+            ['0.123'],
+            ['0.12'],
+        ];
     }
 }

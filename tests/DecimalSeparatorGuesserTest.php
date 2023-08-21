@@ -8,23 +8,33 @@ use Num\DecimalSeparatorGuesser;
 
 class DecimalSeparatorGuesserTest extends TestCase
 {
-    public function testGuessingDecimalSeparatorFromNumberString()
+    public static function decimalSeparatorProvider()
     {
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('1,234,567.89'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('1,234,567'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('1 234 567.89'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('123,4567.89'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('1\'234\'567.89'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('123'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('text'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('12.34567'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('12,345'));
-        $this->assertSame(DecimalSeparator::POINT, DecimalSeparatorGuesser::guess('.12'));
-        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('12,3456'));
-        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('1.234.567,89'));
-        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('1 234 567,89'));
-        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('1\'234\'567,89'));
-        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess('12,34567'));
-        $this->assertSame(DecimalSeparator::COMMA, DecimalSeparatorGuesser::guess(',12'));
+        return [
+            ['1,234,567.89',     DecimalSeparator::POINT],
+            ['1,234,567',        DecimalSeparator::POINT],
+            ['1 234 567.89',     DecimalSeparator::POINT],
+            ['123,4567.89',      DecimalSeparator::POINT],
+            ['1\'234\'567.89',   DecimalSeparator::POINT],
+            ['123',              DecimalSeparator::POINT],
+            ['text',             DecimalSeparator::POINT],
+            ['12.34567',         DecimalSeparator::POINT],
+            ['12,345',           DecimalSeparator::POINT],
+            ['.12',              DecimalSeparator::POINT],
+            ['12,3456',          DecimalSeparator::COMMA],
+            ['1.234.567,89',     DecimalSeparator::COMMA],
+            ['1 234 567,89',     DecimalSeparator::COMMA],
+            ['1\'234\'567,89',   DecimalSeparator::COMMA],
+            ['12,34567',         DecimalSeparator::COMMA],
+            [',12',              DecimalSeparator::COMMA],
+        ];
+    }
+
+    /**
+     * @dataProvider decimalSeparatorProvider
+     */
+    public function testGuessingDecimalSeparatorFromNumberString($input, $expected)
+    {
+        $this->assertSame($expected, DecimalSeparatorGuesser::guess($input));
     }
 }
