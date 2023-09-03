@@ -8,13 +8,21 @@ use Num\DecimalSeparatorGuesser;
 
 class Num
 {
-    public static function float(float|int|string $value, ?DecimalSeparator $decimalSeparator = null): float
+    public static function float(float|int|string|null $value, ?DecimalSeparator $decimalSeparator = null): float
     {
+        if ($value === null) {
+            return 0.00;
+        }
+
         return (float) NonNumericFilter::sanitize($value, $decimalSeparator);
     }
 
-    public static function int(float|int|string $value, ?DecimalSeparator $decimalSeparator = null): int
+    public static function int(float|int|string|null $value, ?DecimalSeparator $decimalSeparator = null): int
     {
+        if ($value === null) {
+            return 0;
+        }
+
         return (int) NonNumericFilter::sanitize($value, $decimalSeparator);
     }
 
