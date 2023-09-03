@@ -3,12 +3,11 @@
 namespace Num;
 
 use Num\NonNumericFilter;
-use Num\Enums\DecimalSeparator;
 use Num\DecimalSeparatorGuesser;
 
 class Num
 {
-    public static function float(float|int|string|null $value, ?DecimalSeparator $decimalSeparator = null): float
+    public static function float(float|int|string|null $value, ?string $decimalSeparator = null): float
     {
         if ($value === null) {
             return 0.00;
@@ -17,7 +16,7 @@ class Num
         return (float) NonNumericFilter::sanitize($value, $decimalSeparator);
     }
 
-    public static function int(float|int|string|null $value, ?DecimalSeparator $decimalSeparator = null): int
+    public static function int(float|int|string|null $value, ?string $decimalSeparator = null): int
     {
         if ($value === null) {
             return 0;
@@ -26,7 +25,7 @@ class Num
         return (int) NonNumericFilter::sanitize($value, $decimalSeparator);
     }
 
-    public static function guessDecimalSeparator(string $value): DecimalSeparator
+    public static function guessDecimalSeparator(string $value): string
     {
         return DecimalSeparatorGuesser::guess($value);
     }

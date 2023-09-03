@@ -2,18 +2,16 @@
 
 namespace Num;
 
-use Num\Enums\DecimalSeparator;
-
 class NonNumericFilter
 {
-    public static function sanitize(string|int|float $value, ?DecimalSeparator $decimalSeparator = null): int|float
+    public static function sanitize(string|int|float $value, ?string $decimalSeparator = null): int|float
     {
         if (is_string($value)) {
             $decimalSeparator = $decimalSeparator ?? DecimalSeparatorGuesser::guess($value);
-            $cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator->value) . ']/', '', $value);
+            $cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator) . ']/', '', $value);
 
-            if ($decimalSeparator === DecimalSeparator::COMMA) {
-                $cleanedValue = str_replace($decimalSeparator->value, DecimalSeparator::POINT->value, $cleanedValue);
+            if ($decimalSeparator === ',') {
+                $cleanedValue = str_replace($decimalSeparator, '.', $cleanedValue);
             }
 
             $float = (float) $cleanedValue;

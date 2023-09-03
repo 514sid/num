@@ -3,7 +3,6 @@
 namespace Num\Tests;
 
 use Num\Num;
-use Num\Enums\DecimalSeparator;
 use PHPUnit\Framework\TestCase;
 
 class NumTest extends TestCase
@@ -46,7 +45,7 @@ class NumTest extends TestCase
                     ['-123.45',         -123.45,        -123],
                     [123,               123.0,          123],
                 ],
-                'separator' => DecimalSeparator::POINT,
+                'separator' => '.',
             ],
 
             'Comma Separator' => [
@@ -65,7 +64,7 @@ class NumTest extends TestCase
                     ['text',            0.0,            0],
                     [',12',             0.12,           0],
                 ],
-                'separator' => DecimalSeparator::COMMA,
+                'separator' => ',',
             ],
         ];
     }

@@ -2,8 +2,6 @@
 
 namespace Num;
 
-use Num\Enums\DecimalSeparator;
-
 class NumberValidator
 {
     public static function canBeInteger(string $input): bool
@@ -35,8 +33,8 @@ class NumberValidator
 
     private static function countSeparators(string $input): array
     {
-        $pointCount = substr_count($input, DecimalSeparator::POINT->value);
-        $commaCount = substr_count($input, DecimalSeparator::COMMA->value);
+        $pointCount = substr_count($input, '.');
+        $commaCount = substr_count($input, ',');
 
         return ['pointCount' => $pointCount, 'commaCount' => $commaCount];
     }
@@ -44,8 +42,8 @@ class NumberValidator
     private static function findSeparatorPosition(string $input, array $separatorCounts): int
     {
         return $separatorCounts['pointCount'] === 1 ?
-            strpos($input, DecimalSeparator::POINT->value) :
-            strpos($input, DecimalSeparator::COMMA->value);
+            strpos($input, '.') :
+            strpos($input, ',');
     }
 
     private static function hasValidAmountOfDigitsBeforeSeparator(int $separatorPosition): bool
