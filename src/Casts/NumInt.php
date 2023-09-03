@@ -3,7 +3,6 @@
 namespace Num\Casts;
 
 use Num\Num;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class NumInt implements CastsAttributes
@@ -14,7 +13,7 @@ class NumInt implements CastsAttributes
      * @param  array<string, mixed>  $attributes
      * @return array<string, mixed>
      */
-    public function get(Model $model, string $key, mixed $value, array $attributes): ?int
+    public function get($model, string $key, mixed $value, array $attributes): ?int
     {
         if ($value === null) {
             return null;
@@ -28,7 +27,7 @@ class NumInt implements CastsAttributes
      *
      * @param  array<string, mixed>  $attributes
      */
-    public function set(Model $model, string $key, mixed $value, array $attributes): array
+    public function set($model, string $key, mixed $value, array $attributes): array
     {
         if ($value === null) {
             return [$key => $value];
