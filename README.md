@@ -7,17 +7,14 @@
 
 An accurate PHP helper for parsing numbers from strings with support for various thousands and decimal separators.
 
-## v1.5.0 Release Notes
-
-Starting from v1.5.0, `Num` also supports parameter types of `int` and `float`. This means you can pass a string, an integer, or a float to `Num::int` or `Num::float`, and it will automatically convert it to the required type.
-
-If a non-numeric or non-string parameter is passed, it will throw an `InvalidArgumentException`.
-
 ![Hero](https://github.com/514sid/num/assets/140138716/70ebb418-e67f-481d-b274-c1e42bf80441)
 
 ## Requirements
 
-[![PHP Version Require](http://poser.pugx.org/514sid/num/require/php)](https://packagist.org/packages/514sid/num)
+| Package Version | PHP Version |
+|-----------------|-------------|
+| v2.x            | ^8.1        |
+| v1.x            | ^8.0        |
 
 ## Installation
 
