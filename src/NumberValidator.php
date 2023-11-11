@@ -4,6 +4,9 @@ namespace Num;
 
 class NumberValidator
 {
+	const INTEGER_MAX_DIGITS_BEFORE_SEPARATOR = 3;
+    const INTEGER_REQUIRED_DIGITS_AFTER_SEPARATOR = 3;
+
     public static function canBeInteger(string $input): bool
     {
         $cleanedInput = self::cleanInput($input);
@@ -48,12 +51,12 @@ class NumberValidator
 
     private static function hasValidAmountOfDigitsBeforeSeparator(int $separatorPosition): bool
     {
-        return $separatorPosition > 0 && $separatorPosition <= 3;
+        return $separatorPosition > 0 && $separatorPosition <= self::INTEGER_MAX_DIGITS_BEFORE_SEPARATOR;
     }
 
     private static function hasValidAmountOfDigitsAfterSeparator(string $input, int $separatorPosition): bool
     {
         $decimalPart = substr($input, $separatorPosition + 1);
-        return strlen($decimalPart) === 3;
+        return strlen($decimalPart) === self::INTEGER_REQUIRED_DIGITS_AFTER_SEPARATOR;
     }
 }
