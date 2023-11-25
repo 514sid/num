@@ -9,6 +9,8 @@ class NonNumericFilter
     public static function sanitize(string|int|float $value, ?DecimalSeparator $decimalSeparator = null): int|float
     {
         if (is_string($value)) {
+			$value = trim($value);
+			
             $decimalSeparator = $decimalSeparator ?? DecimalSeparatorGuesser::guess($value);
             $cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator->value) . ']/', '', $value);
 
