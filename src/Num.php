@@ -6,7 +6,7 @@ use Num\NonNumericFilter;
 use Num\Enums\DecimalSeparator;
 use Num\DecimalSeparatorGuesser;
 
-class Num
+final class Num
 {
     public static function float(float|int|string|null $value, ?DecimalSeparator $decimalSeparator = null): float
     {
