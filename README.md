@@ -53,6 +53,9 @@ Num::int(123.45)            // int(123)
 
 Num::float('text')  // float(0.0)
 Num::int('text')    // int(0)
+
+Num::int('1.23e3')    	  // int(1230)
+Num::float('-5.67e-4')    // float(-0.000567)
 ```
 
 ## How It Works
