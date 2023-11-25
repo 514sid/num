@@ -28,11 +28,8 @@ class NonNumericFilter
         throw new \InvalidArgumentException('The value must be either numeric or a string.');
     }
 
-    private static function isNegative($value): bool
-    {
-        if (is_string($value) && strpos($value, '-') === 0) {
-            return true;
-        }
-        return false;
-    }
+    private static function isNegative(string $value): bool
+	{
+		return strpos($value, '-') === 0;
+	}
 }
