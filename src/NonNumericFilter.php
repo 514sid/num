@@ -10,7 +10,7 @@ class NonNumericFilter
     {
         if (is_string($value)) {
 			$value = trim($value);
-			
+
             $decimalSeparator = $decimalSeparator ?? DecimalSeparatorGuesser::guess($value);
             $cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator->value) . ']/', '', $value);
 
@@ -18,9 +18,9 @@ class NonNumericFilter
                 $cleanedValue = str_replace($decimalSeparator->value, DecimalSeparator::POINT->value, $cleanedValue);
             }
 
-            $float = (float) $cleanedValue;
+            $floatValue = (float) $cleanedValue;
 
-            return self::isNegative($value) ? -$float : $float;
+			return self::isNegative($value) ? -$floatValue : $floatValue;
         }
 
         if (is_numeric($value)) {
