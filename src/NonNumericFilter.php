@@ -11,21 +11,26 @@ class NonNumericFilter
         if (is_string($value)) {
 			$value = trim($value);
 
-            $decimalSeparator = $decimalSeparator ?? DecimalSeparatorGuesser::guess($value);
-            $cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator->value) . ']/', '', $value);
+			$decimalSeparator = $decimalSeparator ?? DecimalSeparatorGuesser::guess($value);
 
-            if ($decimalSeparator === DecimalSeparator::COMMA) {
-                $cleanedValue = str_replace($decimalSeparator->value, DecimalSeparator::POINT->value, $cleanedValue);
-            }
+			if (strpos($value, 'e') !== false) {
+				return self::handleScientificNotation($value);
+			}
 
-            $floatValue = (float) $cleanedValue;
+			$cleanedValue = preg_replace('/[^\d' . preg_quote($decimalSeparator->value) . ']/', '', $value);
+
+			if ($decimalSeparator === DecimalSeparator::COMMA) {
+				$cleanedValue = str_replace($decimalSeparator->value, DecimalSeparator::POINT->value, $cleanedValue);
+			}
+
+			$floatValue = (float) $cleanedValue;
 
 			return self::isNegative($value) ? -$floatValue : $floatValue;
-        }
+		}
 
-        if (is_numeric($value)) {
-            return $value;
-        }
+		if (is_numeric($value)) {
+			return $value;
+		}
 
         throw new \InvalidArgumentException('The value must be either numeric or a string.');
     }
