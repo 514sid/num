@@ -32,4 +32,10 @@ class NonNumericFilter
 	{
 		return strpos($value, '-') === 0;
 	}
+
+	private static function handleScientificNotation(string $value): float
+	{
+		list($coefficient, $exponent) = explode('e', $value);
+		return (float) $coefficient * (float) pow(10, (int) $exponent);
+	}
 }
