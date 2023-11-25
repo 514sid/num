@@ -23,6 +23,7 @@ class NumTest extends TestCase
                     ['.12',         0.12,       0],
                     [123.45,        123.45,     123],
                     [123,           123.0,      123],
+					['-.1234', 		-0.1234, 	0],
                 ],
                 'separator' => null,
             ],
@@ -67,6 +68,41 @@ class NumTest extends TestCase
                 ],
                 'separator' => DecimalSeparator::COMMA,
             ],
+
+			'Edge Cases for Separator Handling' => [
+				'testCases' => [
+					['', 	0.0, 0],
+					['.', 	0.0, 0],
+					['-', 	0.0, 0],
+					['-.', 	0.0, 0],
+				],
+				'separator' => null,
+			],
+
+			'Scientific Notation' => [
+				'testCases' => [
+					['1.23e3', 1230.0, 1230],
+					['-5.67e-4', -0.000567, 0],
+				],
+				'separator' => null,
+			],
+
+			'Corner Cases' => [
+				'testCases' => [
+					[PHP_INT_MAX, PHP_INT_MAX * 1.0, PHP_INT_MAX],
+					[PHP_INT_MIN, PHP_INT_MIN * 1.0, PHP_INT_MIN],
+				],
+				'separator' => DecimalSeparator::POINT,
+			],
+
+			'Whitespace Handling' => [
+				'testCases' => [
+					['  123  ', 123.0, 123],
+					['   12,345 ', 12345.0, 12345],
+					['  - 0.56  ', -0.56, 0],
+				],
+				'separator' => DecimalSeparator::POINT,
+			],
         ];
     }
 
